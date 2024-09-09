@@ -1,0 +1,11 @@
+# Используем базовый образ с Java
+FROM openjdk:11
+
+# Устанавливаем рабочую директорию внутри контейнера
+WORKDIR /usr/app
+
+# Копируем JAR-файл с зависимостями в контейнер
+COPY ./target/first_java_project-1.2.83.jar /usr/app/
+
+# Запускаем приложение при запуске контейнера
+CMD ["java", "-cp", "/usr/app/first_java_project-1.2.83.jar", "org.example.Main"]

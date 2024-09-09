@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    // Определите инструмент Maven
+    tools {
+        maven 'my-maven-tool'
+    }
+
+    stages {
+
+        stage("test") {
+            steps {
+                script {
+                    echo "Testing the app..."
+                    echo "Executing the test for a $BRANCH_NAME"
+                }
+            }
+        }
+
+        stage("build") {
+        when {
+            expression {
+                BRANCH_NAME == 'main' || BRANCH_NAME == 'master'
+            }
+        }
+            steps {
+                script {
+                    echo "Building the app"
+
+                }
+            }
+        }
+//
+        stage("deploy") {
+             when {
+                        expression {
+                            BRANCH_NAME == 'main' || BRANCH_NAME == 'master'
+                        }
+                    }
+            steps {
+                script {
+                    echo "Deploying..."
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Pipeline execution succeeded!'
+        }
+        failure {
+            echo 'Pipeline execution failed!'
+        }
+    }
+}

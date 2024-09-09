@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+    first_java_project:
+        image: ${IMAGE_NAME}:1.0.0
+        ports:
+            - 3000:3000
+    postgres:
+        image: postgres:13
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: password
