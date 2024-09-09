@@ -15,7 +15,9 @@ pipeline {
     }
     environment {
   // IMAGE_VERSION = "1.0.0"
-    IMAGE_NAME =  'kazminv/my-dockerhub-repository'
+        IMAGE_NAME =  'kazminv/my-dockerhub-repository'
+        SERVER_IP_ADDRESS = '54.92.206.240'
+        USER_NAME = 'ubuntu'
     }
 
     stages {
@@ -77,9 +79,9 @@ pipeline {
                 script {
                    def shellCmd = "bash ./server-commands.sh ${env.IMAGE_NAME} ${env.IMAGE_VERSION}"
                    sshagent(['EC2-server-key']) {
-                    sh "scp server-commands.sh ubuntu@54.92.206.240:/home/ubuntu"
-                    sh "scp docker-compose.yaml ubuntu@54.92.206.240:/home/ubuntu"
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.92.206.240 ${shellCmd}"
+                    sh "scp server-commands.sh ${env.USER_NAME}@${env.SERVER_IP_ADDRESS}:/home/${env.USER_NAME}"
+                    sh "scp docker-compose.yaml ${env.USER_NAME}@${env.SERVER_IP_ADDRESS}:/home/${env.USER_NAME}"
+                    sh "ssh -o StrictHostKeyChecking=no ${env.USER_NAME}@${env.SERVER_IP_ADDRESS} ${shellCmd}"
                    }
                 }
             }
