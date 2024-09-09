@@ -14,7 +14,7 @@ pipeline {
         maven 'my-maven-tool'
     }
     environment {
-  // IMAGE_VERSION = "1.0.0"
+        // IMAGE_VERSION = "1.0.0"
         IMAGE_NAME =  'kazminv/my-dockerhub-repository'
         SERVER_IP_ADDRESS = '54.92.206.240'
         USER_NAME = 'ubuntu'
